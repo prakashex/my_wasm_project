@@ -1,7 +1,19 @@
 name: Create Release
 
 on:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        description: 'Select the ref name (branch or tag)'
+        required: true
+        type: choice
+        options:
+          - main
+          - develop
+          - release
+          - 'v1.0.0'
+          - 'v2.0.0'
+          # Add more branches or tags as needed
 
 jobs:
   release:
@@ -20,7 +32,13 @@ jobs:
     - name: Install wasm-pack
       run: cargo install wasm-pack
 
+    - name: Set up GitHub CLI
+      uses: actions/setup-gh@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Run release script
-      run: ./release.sh -v ${{ github.ref_name }}
+      run: ./release.sh -v ${{ github.event.inputs.ref_name }}
       env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
