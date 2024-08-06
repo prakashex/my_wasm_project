@@ -14,6 +14,7 @@ on:
           - 'v1.0.0'
           - 'v2.0.0'
           - 'v0.0.2'
+          - 'v0.0.3'
           # Add more branches or tags as needed
 
 jobs:
