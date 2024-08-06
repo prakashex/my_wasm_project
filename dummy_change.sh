@@ -23,3 +23,6 @@ git push origin $BRANCH_NAME
 # Print the new branch name
 echo "Changes have been pushed to branch: $BRANCH_NAME"
 
+# checkout to master branch
+git checkout master
+
