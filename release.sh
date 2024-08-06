@@ -63,9 +63,13 @@ get_pr_title() {
     gh pr view $pr_number --json title --jq '.title'
 }
 
+# fetch last tag
+
+last_tag = git describe --tags $(git rev-list --tags --max-count=1)
+
 # Append PR titles to the PR list and format it for release notes
 echo "[INFO] Fetching titles for PRs"
-formatted_pr_list="PR numbers and their titles merged into main since the last tag ($version):\n\n"
+formatted_pr_list="PR numbers and their titles merged into main since the last tag ($last_tag):\n\n"
 
 while IFS= read -r line; do
     pr_number=$(echo $line | grep -oE '#[0-9]+' | tr -d '#')

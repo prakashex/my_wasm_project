@@ -24,8 +24,8 @@ latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 commits=$(git log ${latest_tag}..master --pretty=format:"%H %ci %s" --reverse)
 
-echo "PR numbers and their commit messages merged into main since the last tag (${latest_tag}):"
-echo "Listed in ascending order (oldest to most recent):"
+# echo "PR numbers and their commit messages merged into main since the last tag (${latest_tag}):"
+# echo "Listed in ascending order (oldest to most recent):"
 
 echo "$commits" | while read -r hash date time timezone message; do
     if [[ $message =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
