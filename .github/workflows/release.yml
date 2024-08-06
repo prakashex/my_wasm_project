@@ -32,11 +32,6 @@ jobs:
     - name: Install wasm-pack
       run: cargo install wasm-pack
 
-    - name: Set up GitHub CLI
-      uses: actions/setup-gh@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Run release script
       run: ./release.sh -v ${{ github.event.inputs.ref_name }}
       env:
