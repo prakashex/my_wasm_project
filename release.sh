@@ -65,7 +65,7 @@ get_pr_title() {
 
 # fetch last tag
 
-last_tag = git describe --tags $(git rev-list --tags --max-count=1)
+last_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 # Append PR titles to the PR list and format it for release notes
 echo "[INFO] Fetching titles for PRs"
