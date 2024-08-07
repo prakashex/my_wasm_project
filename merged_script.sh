@@ -78,18 +78,17 @@ get_pr_title() {
     gh pr view $pr_number --json title --jq '.title'
 }
 
-# Append PR titles to the PR list and format it for release notes
 echo "[INFO] Fetching titles for PRs"
 formatted_pr_list="PR numbers and their titles merged into main since the last tag ($latest_tag):\n\n"
 
 while IFS= read -r line; do
-    pr_number=$(echo $line | grep -oE '[0-9]+')
-    pr_title=$(get_pr_title $pr_number)
+    pr_number=$(echo "$line" | grep -oE '[0-9]+')
+    pr_title=$(get_pr_title "$pr_number")
     formatted_pr_list+="* PR #${pr_number} - ${pr_title}\n"
 done <<< "$pr_list"
 
 # Use printf to handle newlines correctly in the release notes
-formatted_pr_list=$(printf "$formatted_pr_list")
+formatted_pr_list=$(printf "%b" "$formatted_pr_list")
 
 echo -e "$formatted_pr_list"
 
