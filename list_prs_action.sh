@@ -21,10 +21,15 @@ done
 # Ensure we're on the master branch
 git checkout master
 
-# Fetch the latest tags without fetching all branches
-git fetch origin master --tags --no-tags
+# Fetch the latest tags
+git fetch origin --tags
 
 latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+
+if [ -z "$latest_tag" ]; then
+    echo "No tags found in the repository."
+    exit 1
+fi
 
 commits=$(git log ${latest_tag}..master --pretty=format:"%H %ci %s" --reverse)
 
