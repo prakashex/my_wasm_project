@@ -1,4 +1,4 @@
-name: List Pull Requests
+name: Create Release
 
 on:
   workflow_dispatch:
