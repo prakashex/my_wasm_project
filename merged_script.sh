@@ -70,7 +70,7 @@ if [ -z "$pr_list" ]; then
     exit 1
 fi
 
-echo "[INFO] PRs found:\n$pr_list"
+echo -e "[INFO] PRs found:\n$pr_list"
 
 # Function to get the title of a PR using GitHub CLI
 get_pr_title() {
@@ -83,7 +83,7 @@ echo "[INFO] Fetching titles for PRs"
 formatted_pr_list="PR numbers and their titles merged into main since the last tag ($latest_tag):\n\n"
 
 while IFS= read -r line; do
-    pr_number=$(echo $line | grep -oE '#[0-9]+' | tr -d '#')
+    pr_number=$(echo $line | grep -oE '[0-9]+')
     pr_title=$(get_pr_title $pr_number)
     formatted_pr_list+="* PR #${pr_number} - ${pr_title}\n"
 done <<< "$pr_list"
