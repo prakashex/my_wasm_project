@@ -26,7 +26,7 @@ jobs:
       run: cargo install wasm-pack
 
     - name: Run release script
-      run: ./release.sh -v ${{ github.event.inputs.ref_name }}
+      run: bash release.sh -v ${{ github.event.inputs.ref_name }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

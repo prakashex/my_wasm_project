@@ -42,7 +42,7 @@ echo "[INFO] Artifact found at $artifact_path"
 
 # Function to list PRs merged since the last release
 list_prs() {
-    ./list_prs.sh -s
+    bash list_prs.sh -s
 }
 
 # List the PRs
