@@ -18,7 +18,7 @@ jobs:
 
     - name: Run release script
       run: |
-        chmod +x ./list_prs.sh
+        chmod +x ./list_prs_action.sh
         ./list_prs_action.sh ${{ github.event.inputs.ref_name }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
