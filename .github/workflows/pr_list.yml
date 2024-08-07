@@ -19,9 +19,7 @@ jobs:
         fetch-depth: 0  # Fetch all history for all branches and tags
 
     - name: Run release script
-      run: |
-        chmod +x ./list_prs.sh
-        ./list_prs.sh ${{ github.event.inputs.ref_name }}
+      run: bash list_prs_action.sh ${{ github.event.inputs.ref_name }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
