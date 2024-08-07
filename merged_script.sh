@@ -56,21 +56,21 @@ fi
 commits=$(git log ${latest_tag}..master --pretty=format:"%H %ci %s" --reverse)
 
 # List PRs merged since the last release
-pr_list=""
+pr_list=()
 while read -r hash date time timezone message; do
     if [[ $message =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
         pr_number=${BASH_REMATCH[1]}
-        pr_list+="#${pr_number}\n"
+        pr_list+=("$pr_number")
     fi
 done <<< "$commits"
 
 # Check if PRs were found
-if [ -z "$pr_list" ]; then
+if [ ${#pr_list[@]} -eq 0 ]; then
     echo "[ERROR] No PRs found since the last release"
     exit 1
 fi
 
-echo -e "[INFO] PRs found:\n$pr_list"
+echo -e "[INFO] PRs found: ${pr_list[*]}"
 
 # Function to get the title of a PR using GitHub CLI
 get_pr_title() {
@@ -81,11 +81,10 @@ get_pr_title() {
 echo "[INFO] Fetching titles for PRs"
 formatted_pr_list="PR numbers and their titles merged into main since the last tag ($latest_tag):\n\n"
 
-while IFS= read -r line; do
-    pr_number=$(echo "$line" | grep -oE '[0-9]+')
+for pr_number in "${pr_list[@]}"; do
     pr_title=$(get_pr_title "$pr_number")
     formatted_pr_list+="* PR #${pr_number} - ${pr_title}\n"
-done <<< "$pr_list"
+done
 
 # Use printf to handle newlines correctly in the release notes
 formatted_pr_list=$(printf "%b" "$formatted_pr_list")
