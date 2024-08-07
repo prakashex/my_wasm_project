@@ -75,7 +75,7 @@ echo -e "[INFO] PRs found:\n$pr_list"
 # Function to get the title of a PR using GitHub CLI
 get_pr_title() {
     local pr_number=$1
-    gh pr view $pr_number --json title --jq '.title'
+    gh pr view "$pr_number" --json title --jq '.title'
 }
 
 echo "[INFO] Fetching titles for PRs"
